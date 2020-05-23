@@ -10,7 +10,7 @@ def get_path():
 
 
 def start_driver(driver):
-    driver = driver.Chrome('/Users/AhnJeongHyeon/Downloads/데이터마이닝/chromedriver')
+    driver = driver.Chrome('/Users/AhnJeongHyeon/Downloads/데이터마이닝/부동산/chromedriver')
     driver.get(get_path())
     return driver
 
