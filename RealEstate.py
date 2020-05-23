@@ -30,7 +30,7 @@ def get_region_list(driver):
     search = driver.find_element_by_class_name("map_search_inputtxt2_search2")
     search.click()
     # address에 입력한대로 주소를 입력하고 파라미터를 이용해 click함수 발생
-
+    
     html = driver.page_source
     soup = bs(html, 'html.parser')
     #그다음 옆에 뜨는 li 가져와서 출력
