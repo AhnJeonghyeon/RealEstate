@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 import numpy as np
 
-driver = webdriver
+d = webdriver
 
 
 def get_path():
@@ -56,7 +56,7 @@ def get_region_list(driver):
             # (6동                    742세대 )
             # </span>
             # </a>
-        # </li>,
+            # </li>,
     # <가 시작하면 다 skip, >가 나오고나면 append 시작
     last = []
     for i in range(0, len(list)):
@@ -85,15 +85,36 @@ def get_df(list):
     for i in range(0, len(list)):
         S_list.append(pd.Series(list[i], index=column))
     df = pd.DataFrame(S_list)
-
     return df
 
+
 def get_Housing_Info(df, index):
+    print(df.get(index))
+
+
+def main_flow():
+    driver = start_driver(d)
+    while 1:
+        print("원하는 기능을 선택해주세요")
+        select = input("1.지역검색 2.변동집값검색 3.SNS여론검색 4.분양가검색 5.종료")
+        if select == '1':
+            region_list = get_region_list(driver)
+            df = get_df(region_list)
+            print(df)
+            choose = input("상세정보를 확인하시겠습니까?(Y/N)")
+            if choose == 'Y':
+                print("번호를 입력해주세요")
+                index = input()
+                get_Housing_Info(df, index)
+        elif select == '2':
+            print()
+        elif select == '3':
+            print()
+        elif select == '4':
+            print()
+        elif select == '5':
+            break
 
 
 if __name__ == "__main__":
-    driver = start_driver(driver)
-    region_list = get_region_list(driver)
-    df = get_df(region_list)
-    print(df)
-
+    main_flow()
