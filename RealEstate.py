@@ -2,6 +2,7 @@ import pandas as pd
 from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 import numpy as np
+import time
 
 d = webdriver
 
@@ -88,8 +89,24 @@ def get_df(list):
     return df
 
 
-def get_Housing_Info(df, index):
-    print(df.get(index))
+def get_Housing_Info(df, index, driver):
+    index = int(index)
+    print(df.iloc[index, :])        #index로 접근하려면 iloc
+    #df에서 선택한 index로 click이벤트 누르고 그 페이지에 있는
+    #주소, 면적별 시세, 세대수, 하한/상한 평균가, 전용면적, 전월세 비용)
+    # 1/3년 시세추이 가져옴
+    driver.find_element_by_css_selector("#aptListArea > li:nth-of-type("+str(index)+") > a").click()
+    #NOTE css로 ul을 찾은 다음 li선택 click
+    time.sleep(3)
+    print(driver.window_handles)
+    time.sleep(2)
+    driver.switch_to.window(driver.window_handles[-1])
+    #NOTE
+    html = driver.page_source
+    soup = bs(html, 'html.parser')
+    print(soup)
+    title = soup.select("#aptName")
+    print(title)
 
 
 def main_flow():
@@ -105,7 +122,7 @@ def main_flow():
             if choose == 'Y':
                 print("번호를 입력해주세요")
                 index = input()
-                get_Housing_Info(df, index)
+                get_Housing_Info(df, index, driver)
         elif select == '2':
             print()
         elif select == '3':
