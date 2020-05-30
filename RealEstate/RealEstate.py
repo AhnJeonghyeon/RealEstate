@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 import numpy as np
 import time
+import AnalysisModule
 
-d = webdriver
 
 
 def get_path():
@@ -13,7 +13,7 @@ def get_path():
 
 
 def start_driver(driver):
-    driver = driver.Chrome('/Users/AhnJeongHyeon/Downloads/데이터마이닝/부동산/chromedriver')
+    driver = driver.Chrome('/Users/AhnJeongHyeon/Documents/GitHub/RealEstate/chromedriver')
     driver.get(get_path())
     return driver
 
@@ -86,6 +86,7 @@ def get_df(list):
     for i in range(0, len(list)):
         S_list.append(pd.Series(list[i], index=column))
     df = pd.DataFrame(S_list)
+    #dataframe append series
     return df
 
 
@@ -108,15 +109,15 @@ def get_Housing_Info(df, index, driver):
     title = soup.select("#aptName")
     print(title)
     #TODO 집값 데이터 가져오기.
-    #TODO 최근 그 지역 최고가, 최저가 가져오기
 
 
 
-def main_flow():
+
+def main_flow(d):
     driver = start_driver(d)
     while 1:
         print("원하는 기능을 선택해주세요")
-        select = input("1.지역검색 2.변동집값검색 3.SNS여론검색 4.분양가검색 5.종료")
+        select = input("1.지역검색 2.지역최고(저)상승아파트 3.SNS여론검색 4.분양가검색 5.종료")
         if select == '1':
             region_list = get_region_list(driver)
             df = get_df(region_list)
@@ -127,6 +128,9 @@ def main_flow():
                 index = input()
                 get_Housing_Info(df, index, driver)
         elif select == '2':
+            # TODO 최근 그 지역 최고가, 최저가 가져오기
+            AnalysisModule.getBigGap()
+            # TODO 예측값 가져오기
             print()
         elif select == '3':
             print()
@@ -137,4 +141,5 @@ def main_flow():
 
 
 if __name__ == "__main__":
-    main_flow()
+    d = webdriver
+    main_flow(d)
