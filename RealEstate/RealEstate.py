@@ -107,6 +107,9 @@ def get_Housing_Info(df, index, driver):
     print(soup)
     title = soup.select("#aptName")
     print(title)
+    #TODO 집값 데이터 가져오기.
+    #TODO 최근 그 지역 최고가, 최저가 가져오기
+
 
 
 def main_flow():
