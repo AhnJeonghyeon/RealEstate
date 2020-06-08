@@ -128,17 +128,17 @@ def main_flow(d):
                 index = input()
                 get_Housing_Info(df, index, driver)
         elif select == '2':
-            # TODO 최근 그 지역 최고가, 최저가 가져오기
+            #그 지역 최고가, 최저가 가져오기
             AnalysisModule.getBigGap()
-            # TODO 예측값 가져오기
-            print()
+            #TODO 예측값 가져오기
+            #TODO 가장 많이 오른 지역
         elif select == '3':
             print()
         elif select == '4':
             print()
         elif select == '5':
             break
-
+        
 
 if __name__ == "__main__":
     d = webdriver

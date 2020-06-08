@@ -23,6 +23,7 @@ module을 import하기 위해선 def로 만들어놔야한다.
 '''
 import pandas as pd
 import numpy as np
+import re
 
 def getBigGap():
     gu, do = input("구 또는 구와 동을 입력해주세요(입력이 없을 시 서울시 전체) : ").split()
@@ -60,7 +61,30 @@ def getBigGap():
     print(last_df.groupby(['name', 'size'])['price'].max())
     print(last_df.groupby(['name', 'size'])['price'].min())
 
+def regressionPrice():
+    #todo 집값 예측 모듈 만들어야돼
+    df = pd.read_csv('/Users/AhnJeongHyeon/Documents/GitHub/RealEstate/Data/APT19.06~20.0530.csv')
+    df.columns = ['location', 'fnum', 'num', 'semiNum', 'name', 'size', 'ym', 'd', 'price', 'floor', 'buildY',
+                  'address']
+    #평 평당 가격 추가
+    #공백 제거
+    #df['price'].str.rstrip()
+    #df['price'].str.lstrip()
+
+    #***자료형 변형
+    df['pyung'] = df['size'] / (3.3)
+    df['price'] = pd.to_numeric(df['price'], errors='coerce')
+    #df['price'] = df['price'].astype(float)
+    df['p_price'] = df['price']/df['pyung']
+
+    print(df.head())
+
+    ####수식화 완료
+    #
+
+
 
 if __name__ == "__main__":
     print("main")
-    getBigGap()
+    #getBigGap()
+    regressionPrice()
